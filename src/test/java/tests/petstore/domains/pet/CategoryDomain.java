@@ -1,0 +1,16 @@
+package tests.petstore.domains.pet;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class CategoryDomain {
+
+    private Long id;
+    private String name;
+}
