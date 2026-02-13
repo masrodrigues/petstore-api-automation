@@ -27,4 +27,13 @@ public class CreatePetRequest extends BaseRequest {
             .jsonPath()
             .getLong(FIELD_ID);
     }
+
+    public PetDomain createAndExtract(PetDomain pet) {
+        return create(pet)
+            .then()
+            .statusCode(HttpStatusEnum.OK.getCode())
+            .extract()
+            .as(PetDomain.class);
+    }
+
 }

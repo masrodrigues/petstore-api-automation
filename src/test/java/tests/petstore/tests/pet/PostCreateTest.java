@@ -1,16 +1,15 @@
 
 package tests.petstore.tests.pet;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import tests.petstore.base.BaseTest;
 import tests.petstore.domains.pet.PetDomain;
-import tests.petstore.enums.PetStatusEnum;
 import tests.petstore.requests.pet.CreatePetRequest;
 import tests.petstore.requests.pet.GetPetByIdRequest;
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class PostCreateTest extends BaseTest {
 
@@ -18,24 +17,16 @@ public class PostCreateTest extends BaseTest {
     private final GetPetByIdRequest getPetByIdRequest = new GetPetByIdRequest();
 
     @Test
+    @DisplayName("Deve ser possível criar um pet com sucesso")
     void shouldCreatePetSuccessfully() {
 
-        // Arrange
-        PetDomain pet = PetDomain.builder()
-            .id(System.currentTimeMillis())
-            .name("QA Dog")
-            .photoUrls(List.of("https://photo.pet/1"))
-            .status(PetStatusEnum.available)
-            .build();
+        PetDomain pet = PetDomain.generateValid();
 
-        // Act
-        Long petId = createPetRequest.createAndReturnId(pet);
-
-        // Assert
-        PetDomain createdPet = getPetByIdRequest.getByIdAndExtract(petId);
+        PetDomain createdPet = createPetRequest.createAndExtract(pet);
 
         assertThat(createdPet.getId()).isEqualTo(pet.getId());
-        assertThat(createdPet.getName()).isEqualTo("QA Dog");
-        assertThat(createdPet.getStatus()).isEqualTo(PetStatusEnum.available);
+        assertThat(createdPet.getName()).isEqualTo(pet.getName());
+        assertThat(createdPet.getStatus()).isEqualTo(pet.getStatus());
     }
+
 }
