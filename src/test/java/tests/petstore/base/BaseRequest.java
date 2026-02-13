@@ -20,6 +20,7 @@ public abstract class BaseRequest {
         this.spec = new RequestSpecBuilder()
             .setContentType(ContentType.JSON)
             .setAccept(ContentType.JSON)
+            .addFilter(new CustomLogFilter())
             .build();
     }
 

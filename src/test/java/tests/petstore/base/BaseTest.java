@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
  * Classe base para todos os testes.
  * Centraliza configurações globais do RestAssured.
  */
-public abstract class BaseTest {
+public abstract class BaseTest extends Hooks{
 
     @BeforeAll
     static void beforeAll() {
